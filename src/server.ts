@@ -3,7 +3,7 @@ import { ApolloServer } from "apollo-server-express";
 import { readFileSync } from "fs";
 import path from "path";
 import { resolvers } from "./resolvers";
-import { connectDB } from "./mongo/config";
+import { connectDB } from "./mongo/config/connection";
 
 const startServer = async () => {
   await connectDB();

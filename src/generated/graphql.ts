@@ -16,20 +16,50 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type DailyUpdateInput = {
+  followUps: Scalars['String']['input'];
+  impediments: Scalars['String']['input'];
+  onCallSupport: Scalars['String']['input'];
+  today: Scalars['String']['input'];
+  yesterday: Scalars['String']['input'];
+};
+
+export type DailyUpdateModel = {
+  __typename?: 'DailyUpdateModel';
+  createTimeStamp: Scalars['String']['output'];
+  createdBy: Scalars['String']['output'];
+  followUps: Scalars['String']['output'];
+  impediments: Scalars['String']['output'];
+  onCallSupport: Scalars['String']['output'];
+  today: Scalars['String']['output'];
+  yesterday: Scalars['String']['output'];
+};
+
+export type DailyUpdateResponse = {
+  __typename?: 'DailyUpdateResponse';
+  message?: Maybe<Scalars['String']['output']>;
+  success: Scalars['Boolean']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  addUser: User;
+  addDailyUpdate: DailyUpdateResponse;
 };
 
 
-export type MutationAddUserArgs = {
-  email: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+export type MutationAddDailyUpdateArgs = {
+  input: DailyUpdateInput;
 };
 
 export type Query = {
   __typename?: 'Query';
-  getUsers: Array<User>;
+  user?: Maybe<User>;
+  users: Array<User>;
+};
+
+
+export type QueryUserArgs = {
+  id: Scalars['ID']['input'];
 };
 
 export type User = {
@@ -111,6 +141,9 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  DailyUpdateInput: DailyUpdateInput;
+  DailyUpdateModel: ResolverTypeWrapper<DailyUpdateModel>;
+  DailyUpdateResponse: ResolverTypeWrapper<DailyUpdateResponse>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
@@ -121,6 +154,9 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  DailyUpdateInput: DailyUpdateInput;
+  DailyUpdateModel: DailyUpdateModel;
+  DailyUpdateResponse: DailyUpdateResponse;
   ID: Scalars['ID']['output'];
   Mutation: {};
   Query: {};
@@ -128,12 +164,30 @@ export type ResolversParentTypes = {
   User: User;
 };
 
+export type DailyUpdateModelResolvers<ContextType = any, ParentType extends ResolversParentTypes['DailyUpdateModel'] = ResolversParentTypes['DailyUpdateModel']> = {
+  createTimeStamp?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdBy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  followUps?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  impediments?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  onCallSupport?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  today?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  yesterday?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type DailyUpdateResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['DailyUpdateResponse'] = ResolversParentTypes['DailyUpdateResponse']> = {
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAddUserArgs, 'email' | 'name'>>;
+  addDailyUpdate?: Resolver<ResolversTypes['DailyUpdateResponse'], ParentType, ContextType, RequireFields<MutationAddDailyUpdateArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getUsers?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
+  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -144,6 +198,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  DailyUpdateModel?: DailyUpdateModelResolvers<ContextType>;
+  DailyUpdateResponse?: DailyUpdateResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

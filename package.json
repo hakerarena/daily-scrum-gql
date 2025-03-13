@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/server.ts",
-    "dev": "ts-node src/index.ts",
+    "start": "ts-node src/server.ts --watch",
+    "dev": "ts-node src/server.ts --watch",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "graphql-codegen --config ./codegen/codegen.yml",
-    "codegen:watch": "generate --watch",
+    "codegen:watch": "graphql-codegen --config ./codegen/codegen.yml --watch",
     "force-delete": "Remove-Item -Recurse -Force node_modules, package-lock.json"
   },
   "repository": {
@@ -27,7 +27,9 @@
     "@types/express": "^5.0.0"
   },
   "dependencies": {
+    "@parcel/watcher": "^2.5.1",
     "apollo-server-express": "^3.13.0",
+    "await-to-js": "^3.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

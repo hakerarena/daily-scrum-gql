@@ -5,9 +5,33 @@ type User {
 }
 
 type Query {
-  getUsers: [User!]!
+  users: [User!]!
+  user(id: ID!): User
 }
 
 type Mutation {
-  addUser(name: String!, email: String!): User!
+  addDailyUpdate(input: DailyUpdateInput!): DailyUpdateResponse!
+}
+
+input DailyUpdateInput {
+  yesterday: String!
+  today: String!
+  onCallSupport: String!
+  impediments: String!
+  followUps: String!
+}
+
+type DailyUpdateResponse {
+  success: Boolean!
+  message: String
+}
+
+type DailyUpdateModel {
+  createTimeStamp: String!
+  createdBy: String!
+  yesterday: String!
+  today: String!
+  onCallSupport: String!
+  impediments: String!
+  followUps: String!
 }
