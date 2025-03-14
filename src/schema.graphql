@@ -1,11 +1,6 @@
-type User {
-  id: ID!
-  name: String!
-  email: String!
-}
-
 type Query {
   getAllUpdates(filter: DailyUpdateFilter): DailyUpdates!
+  verifyUser(user: UserInput!): UserVerificationResponse!
 }
 
 type Mutation {
@@ -26,6 +21,11 @@ input DailyUpdateFilter {
   createTimeStamp: String
 }
 
+input UserInput {
+  email: String!
+  password: String!
+}
+
 type DailyUpdateResponse {
   success: Boolean!
   message: String
@@ -43,4 +43,23 @@ type DailyUpdateModel {
 
 type DailyUpdates {
   dailyUpdates: [DailyUpdateModel!]!
+}
+
+type UserVerificationResponse {
+  verificationStatus: Boolean!
+  userType: String!
+}
+
+type UserDetail {
+  name: String!
+  employeeId: String!
+  email: String!
+  password: String!
+  userType: String!
+}
+
+enum UserType {
+  ADMIN
+  USER
+  INVALID
 }

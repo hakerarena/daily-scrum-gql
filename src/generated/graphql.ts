@@ -65,6 +65,7 @@ export type MutationAddDailyUpdateArgs = {
 export type Query = {
   __typename?: 'Query';
   getAllUpdates: DailyUpdates;
+  verifyUser: UserVerificationResponse;
 };
 
 
@@ -72,11 +73,35 @@ export type QueryGetAllUpdatesArgs = {
   filter?: InputMaybe<DailyUpdateFilter>;
 };
 
-export type User = {
-  __typename?: 'User';
+
+export type QueryVerifyUserArgs = {
+  user: UserInput;
+};
+
+export type UserDetail = {
+  __typename?: 'UserDetail';
   email: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
+  employeeId: Scalars['String']['output'];
   name: Scalars['String']['output'];
+  password: Scalars['String']['output'];
+  userType: Scalars['String']['output'];
+};
+
+export type UserInput = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
+export enum UserType {
+  Admin = 'ADMIN',
+  Invalid = 'INVALID',
+  User = 'USER'
+}
+
+export type UserVerificationResponse = {
+  __typename?: 'UserVerificationResponse';
+  userType: Scalars['String']['output'];
+  verificationStatus: Scalars['Boolean']['output'];
 };
 
 
@@ -156,11 +181,13 @@ export type ResolversTypes = {
   DailyUpdateModel: ResolverTypeWrapper<DailyUpdateModel>;
   DailyUpdateResponse: ResolverTypeWrapper<DailyUpdateResponse>;
   DailyUpdates: ResolverTypeWrapper<DailyUpdates>;
-  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  User: ResolverTypeWrapper<User>;
+  UserDetail: ResolverTypeWrapper<UserDetail>;
+  UserInput: UserInput;
+  UserType: UserType;
+  UserVerificationResponse: ResolverTypeWrapper<UserVerificationResponse>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -171,11 +198,12 @@ export type ResolversParentTypes = {
   DailyUpdateModel: DailyUpdateModel;
   DailyUpdateResponse: DailyUpdateResponse;
   DailyUpdates: DailyUpdates;
-  ID: Scalars['ID']['output'];
   Mutation: {};
   Query: {};
   String: Scalars['String']['output'];
-  User: User;
+  UserDetail: UserDetail;
+  UserInput: UserInput;
+  UserVerificationResponse: UserVerificationResponse;
 };
 
 export type DailyUpdateModelResolvers<ContextType = any, ParentType extends ResolversParentTypes['DailyUpdateModel'] = ResolversParentTypes['DailyUpdateModel']> = {
@@ -206,12 +234,21 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAllUpdates?: Resolver<ResolversTypes['DailyUpdates'], ParentType, ContextType, Partial<QueryGetAllUpdatesArgs>>;
+  verifyUser?: Resolver<ResolversTypes['UserVerificationResponse'], ParentType, ContextType, RequireFields<QueryVerifyUserArgs, 'user'>>;
 };
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+export type UserDetailResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserDetail'] = ResolversParentTypes['UserDetail']> = {
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  employeeId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  userType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UserVerificationResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserVerificationResponse'] = ResolversParentTypes['UserVerificationResponse']> = {
+  userType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  verificationStatus?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -221,6 +258,7 @@ export type Resolvers<ContextType = any> = {
   DailyUpdates?: DailyUpdatesResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  User?: UserResolvers<ContextType>;
+  UserDetail?: UserDetailResolvers<ContextType>;
+  UserVerificationResponse?: UserVerificationResponseResolvers<ContextType>;
 };
 
