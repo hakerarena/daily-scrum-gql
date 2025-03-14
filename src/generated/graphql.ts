@@ -120,6 +120,7 @@ export enum UserType {
 
 export type UserVerificationResponse = {
   __typename?: 'UserVerificationResponse';
+  message: Scalars['String']['output'];
   userType: Scalars['String']['output'];
   verificationStatus: Scalars['Boolean']['output'];
 };
@@ -278,6 +279,7 @@ export type UserRegistrationResponseResolvers<ContextType = any, ParentType exte
 };
 
 export type UserVerificationResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserVerificationResponse'] = ResolversParentTypes['UserVerificationResponse']> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   userType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   verificationStatus?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

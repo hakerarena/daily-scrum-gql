@@ -57,6 +57,7 @@ type DailyUpdates {
 type UserVerificationResponse {
   verificationStatus: Boolean!
   userType: String!
+  message: String!
 }
 
 type UserRegistrationResponse {

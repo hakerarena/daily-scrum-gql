@@ -18,7 +18,7 @@ export class UserDetailsService {
       })
     );
     if (user) {
-      console.log(FeatureConstants.SUCCESSFULL_FETCH);
+      console.log(FeatureConstants.USER_FOUND);
       return user;
     } else {
       console.log(error);
@@ -30,10 +30,11 @@ export class UserDetailsService {
   async verifyUser(userInput: UserInput): Promise<UserVerificationResponse> {
     const user = await this.findUserByEmail(userInput.email);
     if (!user) {
-      console.log(FeatureConstants.FAILED_USER_VERIFICATION);
+      console.log(FeatureConstants.USER_NOT_FOUND);
       return {
         verificationStatus: false,
         userType: UserType.Invalid,
+        message: FeatureConstants.USER_NOT_FOUND,
       };
     }
 
@@ -42,12 +43,14 @@ export class UserDetailsService {
       return {
         verificationStatus: true,
         userType: user.userType,
+        message: FeatureConstants.SUCCESSFULL_USER_VERIFICATION,
       };
     } else {
       console.log(FeatureConstants.INVALID_PASSWORD);
       return {
         verificationStatus: false,
         userType: UserType.Invalid,
+        message: FeatureConstants.INVALID_PASSWORD,
       };
     }
   }
