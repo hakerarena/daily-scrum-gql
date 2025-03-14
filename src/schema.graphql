@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
   addDailyUpdate(input: DailyUpdateInput!): DailyUpdateResponse!
+  registerUser(input: RegisterUserInput!): UserRegistrationResponse!
 }
 
 input DailyUpdateInput {
@@ -24,6 +25,14 @@ input DailyUpdateFilter {
 input UserInput {
   email: String!
   password: String!
+}
+
+input RegisterUserInput {
+  name: String!
+  employeeId: String!
+  email: String!
+  password: String!
+  userType: UserType!
 }
 
 type DailyUpdateResponse {
@@ -48,6 +57,11 @@ type DailyUpdates {
 type UserVerificationResponse {
   verificationStatus: Boolean!
   userType: String!
+}
+
+type UserRegistrationResponse {
+  success: Boolean!
+  message: String
 }
 
 type UserDetail {

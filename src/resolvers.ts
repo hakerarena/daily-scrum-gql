@@ -15,5 +15,8 @@ export const resolvers: Resolvers = {
     addDailyUpdate: async (_, { input }) => {
       return await new DailyUpdateService().addDailyUpdate(input);
     },
+    registerUser: async (_, { input }) => {
+      return await new UserDetailsService().registerUser(input);
+    },
   },
 };

@@ -55,11 +55,17 @@ export type DailyUpdates = {
 export type Mutation = {
   __typename?: 'Mutation';
   addDailyUpdate: DailyUpdateResponse;
+  registerUser: UserRegistrationResponse;
 };
 
 
 export type MutationAddDailyUpdateArgs = {
   input: DailyUpdateInput;
+};
+
+
+export type MutationRegisterUserArgs = {
+  input: RegisterUserInput;
 };
 
 export type Query = {
@@ -78,6 +84,14 @@ export type QueryVerifyUserArgs = {
   user: UserInput;
 };
 
+export type RegisterUserInput = {
+  email: Scalars['String']['input'];
+  employeeId: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  userType: UserType;
+};
+
 export type UserDetail = {
   __typename?: 'UserDetail';
   email: Scalars['String']['output'];
@@ -90,6 +104,12 @@ export type UserDetail = {
 export type UserInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
+};
+
+export type UserRegistrationResponse = {
+  __typename?: 'UserRegistrationResponse';
+  message?: Maybe<Scalars['String']['output']>;
+  success: Scalars['Boolean']['output'];
 };
 
 export enum UserType {
@@ -183,9 +203,11 @@ export type ResolversTypes = {
   DailyUpdates: ResolverTypeWrapper<DailyUpdates>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
+  RegisterUserInput: RegisterUserInput;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   UserDetail: ResolverTypeWrapper<UserDetail>;
   UserInput: UserInput;
+  UserRegistrationResponse: ResolverTypeWrapper<UserRegistrationResponse>;
   UserType: UserType;
   UserVerificationResponse: ResolverTypeWrapper<UserVerificationResponse>;
 };
@@ -200,9 +222,11 @@ export type ResolversParentTypes = {
   DailyUpdates: DailyUpdates;
   Mutation: {};
   Query: {};
+  RegisterUserInput: RegisterUserInput;
   String: Scalars['String']['output'];
   UserDetail: UserDetail;
   UserInput: UserInput;
+  UserRegistrationResponse: UserRegistrationResponse;
   UserVerificationResponse: UserVerificationResponse;
 };
 
@@ -230,6 +254,7 @@ export type DailyUpdatesResolvers<ContextType = any, ParentType extends Resolver
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addDailyUpdate?: Resolver<ResolversTypes['DailyUpdateResponse'], ParentType, ContextType, RequireFields<MutationAddDailyUpdateArgs, 'input'>>;
+  registerUser?: Resolver<ResolversTypes['UserRegistrationResponse'], ParentType, ContextType, RequireFields<MutationRegisterUserArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -246,6 +271,12 @@ export type UserDetailResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UserRegistrationResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserRegistrationResponse'] = ResolversParentTypes['UserRegistrationResponse']> = {
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type UserVerificationResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserVerificationResponse'] = ResolversParentTypes['UserVerificationResponse']> = {
   userType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   verificationStatus?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -259,6 +290,7 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   UserDetail?: UserDetailResolvers<ContextType>;
+  UserRegistrationResponse?: UserRegistrationResponseResolvers<ContextType>;
   UserVerificationResponse?: UserVerificationResponseResolvers<ContextType>;
 };
 
