@@ -5,8 +5,7 @@ type User {
 }
 
 type Query {
-  users: [User!]!
-  user(id: ID!): User
+  getAllUpdates(filter: DailyUpdateFilter): DailyUpdates!
 }
 
 type Mutation {
@@ -19,6 +18,12 @@ input DailyUpdateInput {
   onCallSupport: String!
   impediments: String!
   followUps: String!
+  createdBy: String!
+}
+
+input DailyUpdateFilter {
+  createdBy: String
+  createTimeStamp: String
 }
 
 type DailyUpdateResponse {
@@ -34,4 +39,8 @@ type DailyUpdateModel {
   onCallSupport: String!
   impediments: String!
   followUps: String!
+}
+
+type DailyUpdates {
+  dailyUpdates: [DailyUpdateModel!]!
 }

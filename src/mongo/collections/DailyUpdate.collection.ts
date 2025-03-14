@@ -1,5 +1,9 @@
-import { Db, Collection, InsertOneResult } from "mongodb";
-import { DailyUpdateInput, DailyUpdateModel } from "../../generated/graphql";
+import { InsertOneResult } from "mongodb";
+import {
+  DailyUpdateFilter,
+  DailyUpdateInput,
+  DailyUpdateModel,
+} from "../../generated/graphql";
 import { transformDailyUpdate } from "../../transformers/DailyUpdate.mapper";
 import { MongoCore } from "../config/MongoCore";
 import { CollectionsEnum } from "../config/Collections.enum";
