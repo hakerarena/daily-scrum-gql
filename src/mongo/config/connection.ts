@@ -1,5 +1,4 @@
-import { MongoClient } from "mongodb";
-import { Db } from "mongodb";
+import { MongoClient, Db } from "mongodb";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -7,8 +6,8 @@ dotenv.config();
 const MONGO_URI = process.env.MONGO_URI ?? "";
 const DB_NAME = process.env.DATABASE_NAME ?? "";
 
-export class MongoDb {
-  private static instance: MongoDb;
+export class MongoDbClient {
+  private static instance: MongoDbClient;
   private client: MongoClient;
   private db!: Db;
   private isConnected: boolean = false;
@@ -17,11 +16,11 @@ export class MongoDb {
     this.client = new MongoClient(MONGO_URI);
   }
 
-  static getInstance(): MongoDb {
-    if (!MongoDb.instance) {
-      MongoDb.instance = new MongoDb();
+  static getInstance(): MongoDbClient {
+    if (!MongoDbClient.instance) {
+      MongoDbClient.instance = new MongoDbClient();
     }
-    return MongoDb.instance;
+    return MongoDbClient.instance;
   }
 
   async connect() {
@@ -33,8 +32,15 @@ export class MongoDb {
     }
     return this.db;
   }
+
+  getDb(): Db {
+    if (!this.isConnected) {
+      throw new Error("MongoDB is not connected");
+    }
+    return this.db;
+  }
 }
 
 export const connectDB = async () => {
-  return MongoDb.getInstance().connect();
+  return MongoDbClient.getInstance().connect();
 };
