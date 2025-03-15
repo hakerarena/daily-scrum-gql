@@ -11,7 +11,11 @@ const startServer = async () => {
   const app: Application = express();
   const typeDefs = readFileSync(path.join(__dirname, "schema.graphql"), "utf8");
 
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    introspection: process.env.INTROSPECTION?.toLowerCase() === "true",
+  });
   await server.start();
 
   server.applyMiddleware({ app });
